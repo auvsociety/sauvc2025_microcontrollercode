@@ -27,7 +27,7 @@ void setup() {
   initializeSensorMath();
   initializeThrusters();
   initializeLED();
-  initializeDropper();
+  //initializeDropper();
   previous_update_rate = micros();
   previous_publish_rate = millis();
 }
@@ -41,6 +41,7 @@ void loop() {
     updateDepthSensorReadings(depth);
     applyIMUCalibration(ax, ay, az, gx, gy, gz, mx, my, mz);
     updateOrientation(ax, ay, az, gx, gy, gz, mx, my, mz, roll, pitch, yaw);
+    //readVoltage();
   }
 
   if ((millis() - previous_publish_rate) >= PUBLISH_RATE) {
@@ -49,9 +50,10 @@ void loop() {
     sendOrientation(roll, pitch, yaw);
     sendDepth(depth);
 
-    // Serial.print("roll: "); Serial.println(roll);
-    // Serial.print("pitch: "); Serial.println(pitch);
-    // Serial.print("yaw: "); Serial.println(yaw);
+    Serial.print("roll: "); Serial.println(roll);
+    Serial.print("pitch: "); Serial.println(pitch);
+    Serial.print("yaw: "); Serial.println(yaw);
+    
   }
   checkForCommands();
 }

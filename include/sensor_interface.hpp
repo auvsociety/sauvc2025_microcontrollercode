@@ -1,3 +1,4 @@
+
 #ifndef SENSOR_INTERFACE_HPP
 #define SENSOR_INTERFACE_HPP
 

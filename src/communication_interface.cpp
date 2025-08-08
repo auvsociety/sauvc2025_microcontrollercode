@@ -6,7 +6,7 @@
 
 geometry_msgs::Vector3 linearAcceleration;
 geometry_msgs::Vector3 angularVelocity;
-sensor_msgs::MagneticField magneticField;
+geometry_msgs::Vector3 magneticField;
 geometry_msgs::Vector3 orientation_RPY;
 std_msgs::Int32MultiArray pwm_values;
 std_msgs::Float32 depth_data;
@@ -26,15 +26,15 @@ ros::Publisher DepthDataPub("/sensors/depth", &depth_data);
 ros::Subscriber<std_msgs::Int32MultiArray> PWMsub("/control/pwm", &throttleCb);
 ros::Subscriber<std_msgs::Bool> calibrationSub("/control/calibration",
                                                &calibrationCb);
-ros::Subscriber<std_msgs::Bool> dropperSub("/control/dropper",
-                                               &dropperCb);
+//ros::Subscriber<std_msgs::Bool> dropperSub("/control/dropper",
+                                               //&dropperCb);
 ros::Subscriber<std_msgs::Int16> diagnosticSub("/control/led", &ledCb);
 
 void initializeCommunication() {
   nh.initNode();
   nh.subscribe(PWMsub);
   nh.subscribe(calibrationSub);
-  nh.subscribe(dropperSub);
+  //nh.subscribe(dropperSub);
   nh.subscribe(diagnosticSub);
   nh.advertise(linearAccelerationPub);
   nh.advertise(AngularVelocityPub);
@@ -58,9 +58,9 @@ void sendIMUReadings(float ax, float ay, float az, float gx, float gy, float gz,
   angularVelocity.y = gy;
   angularVelocity.z = gz;
 
-  magneticField.magnetic_field.x = mx;
-  magneticField.magnetic_field.y = my;
-  magneticField.magnetic_field.z = mz;
+  magneticField.x = mx;
+  magneticField.y = my;
+  magneticField.z = mz;
 
   linearAccelerationPub.publish(&linearAcceleration);
   AngularVelocityPub.publish(&angularVelocity);
@@ -95,10 +95,10 @@ void ledCb(const std_msgs::Int16& led_msg) {
 
 }
 
-void dropperCb(const std_msgs::Bool& dropper_control){
-  bool activate = dropper_control.data;
-  if(activate)
-  activateDropper();
-}
+// void dropperCb(const std_msgs::Bool& dropper_control){
+//   bool activate = dropper_control.data;
+//   if(activate)
+//   activateDropper();
+// }
 
 void checkForCommands() { nh.spinOnce(); }

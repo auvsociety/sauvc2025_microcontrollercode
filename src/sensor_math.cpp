@@ -28,9 +28,11 @@ const FusionVector accelerometerSensitivity = {1.0f, 1.0f, 1.0f};
 // FusionVector accelerometerOffset = {-0.10, 1.19, -0.04f};
 FusionVector accelerometerOffset = {-0.00, -0.11, 0.00};
 
-const FusionMatrix softIronMatrix = {0.979, -0.024, -0.019, -0.024, 0.983,
-                                     0.007, -0.019, 0.007,  1.040};
-const FusionVector hardIronOffset = {53.31, 92.47, 80.06};
+// const FusionMatrix softIronMatrix = {0.982, -0.031, -0.000, -0.031, 0.983, 0.020, 0.000, 0.020,  1.038}; //old constants
+// const FusionVector hardIronOffset = {47.55, 86.93, 84.82};
+
+const FusionMatrix softIronMatrix = {0.974, -0.027, -0.010, -0.028, 1.001, 0.013, -0.010, 0.013,  1.025}; //new constants
+const FusionVector hardIronOffset = {47.16, 86.28, 80.50};
 
 void initializeSensorMath() {
   FusionOffsetInitialise(&offset, SAMPLE_RATE);
